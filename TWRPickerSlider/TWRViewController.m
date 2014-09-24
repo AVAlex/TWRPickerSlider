@@ -14,6 +14,9 @@
 @interface TWRViewController () <TWRPickerSliderDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
+- (IBAction)resetButtonPressed:(UIButton *)sender;
+
+@property (nonatomic, strong) TWRPickerSlider *slider1;
 
 @end
 
@@ -28,21 +31,21 @@
     TWRDemoObject *obj3 = [[TWRDemoObject alloc] initWithTitle:@"Object 3"];
     
     // Picker Slider 1
-    TWRPickerSlider *slider1 = [[TWRPickerSlider alloc] init];
+    _slider1 = [[TWRPickerSlider alloc] init];
     
     // Colors
-    slider1.mainColor = [UIColor lightGrayColor];
-    slider1.secondaryColor = [UIColor whiteColor];
+    _slider1.mainColor = [UIColor lightGrayColor];
+    _slider1.secondaryColor = [UIColor whiteColor];
     
     // Objects for picker
-    slider1.pickerObjects = @[obj1, obj2, obj3];
+    _slider1.pickerObjects = @[obj1, obj2, obj3];
     
     // Texts
-    slider1.leftText = @"Slider #1:";
-    slider1.rightText = @"Select";
+    _slider1.leftText = @"Slider #1:";
+    _slider1.rightText = @"Select";
     
     // Delegate
-    slider1.delegate = self;
+    _slider1.delegate = self;
     
     // Picker Slider 2
     TWRPickerSlider *slider2 = [[TWRPickerSlider alloc] init];
@@ -83,12 +86,16 @@
     TWRSliderStackedView *stack = [[TWRSliderStackedView alloc] initWithPosition:TWRPickerSliderPositionTop topPadding:20];
 //    TWRSliderStackedView *stack = [[TWRSliderStackedView alloc] initWithTabBar];
     stack.type = TWRPickerSliderTypeDatePicker;
-    stack.sliders = @[slider1, slider2, slider3];
+    stack.sliders = @[_slider1, slider2, slider3];
     [self.view addSubview:stack];
 }
 
 - (void)objectSelected:(id<TWRPickerSliderDatasource>)selectedObject sender:(TWRPickerSlider *)sender{
     NSLog(@"Selected object: %@", [selectedObject twr_pickerTitle]);
+}
+
+- (IBAction)resetButtonPressed:(UIButton *)sender {
+    [_slider1 resetPicker];
 }
 
 @end

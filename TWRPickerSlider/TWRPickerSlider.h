@@ -27,6 +27,7 @@ typedef NS_ENUM(NSUInteger, TWRPickerSliderPosition) {
 
 @protocol TWRPickerSliderDelegate <NSObject>
 - (void)objectSelected:(id<TWRPickerSliderDatasource>)selectedObject sender:(TWRPickerSlider *)sender;
+@optional
 - (void)dateSelected:(NSDate *)selectedDate sender:(TWRPickerSlider *)sender;
 @end
 
@@ -49,6 +50,9 @@ typedef NS_ENUM(NSUInteger, TWRPickerSliderPosition) {
 // Picker position
 @property (assign, nonatomic) TWRPickerSliderPosition position;
 @property (assign, nonatomic) TWRPickerSliderType type;
+
+// Reset
+- (void)resetPicker;
 
 - (instancetype)initWithFrame:(CGRect)frame visibleHeight:(NSUInteger)visibleHeight;
 - (instancetype)initWithType:(TWRPickerSliderType)type;

@@ -278,4 +278,12 @@
     self.header.rightLabel.text = [df stringFromDate:sender.date];
 }
 
+#pragma mark - Reset
+
+- (void)resetPicker {
+    
+    self.header.leftLabel.text = self.leftText;
+    self.header.rightLabel.text = self.rightText;
+}
+
 @end
