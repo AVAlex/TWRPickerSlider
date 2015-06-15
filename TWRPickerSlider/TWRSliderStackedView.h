@@ -13,6 +13,7 @@
 
 // Picker position
 @property (assign, nonatomic) TWRPickerSliderType type;
+@property (nonatomic, assign) CGFloat width;
 
 @property (strong, nonatomic) NSArray *sliders;
 

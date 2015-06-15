@@ -111,6 +111,11 @@
                     default:
                         break;
                 }
+                self.header.frame = CGRectMake(0, 0, CGRectGetWidth(newSuperview.frame), 44);
+                [self.header layoutIfNeeded];
+                [self.header needsUpdateConstraints];
+                [self addSubview:self.header];
+                [self addSubview:self.button];
             }
                 break;
                 
@@ -146,8 +151,8 @@
                 break;
         }
     });
-    [self addSubview:self.header];
-    [self addSubview:self.button];
+    //    [self addSubview:self.header];
+    //    [self addSubview:self.button];
 }
 
 - (void)configurePickerWithRect:(CGRect)rect {
@@ -260,6 +265,8 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     if (row == 0) {
+        self.selectedObject = nil;
+        self.header.rightLabel.text = self.rightText;
         return;
     }
     id<TWRPickerSliderDatasource>object = [self.pickerObjects objectAtIndex:row - 1];

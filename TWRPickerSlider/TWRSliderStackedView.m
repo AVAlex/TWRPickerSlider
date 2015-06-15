@@ -53,7 +53,7 @@
 - (instancetype)initWithTabBar {
     self = [self initWithPosition:TWRPickerSliderPositionBottom];
     if (self) {
-        self.bottomPadding = 49;
+        self.bottomPadding = 120;//49
     }
     return self;
 }
@@ -61,7 +61,8 @@
 - (instancetype)initWithPosition:(TWRPickerSliderPosition)position {
     self = [self initWithFrame:CGRectZero];
     if (self) {
-        self.position = position;
+        //        self.position = position;
+        self.bottomPadding = 64;
     }
     return self;
 }
@@ -92,7 +93,10 @@
             self.frame = CGRectMake(CGRectGetMinX(newSuperview.frame), CGRectGetMaxY(newSuperview.frame) - PICKER_INVISIBLE_HEIGHT - PICKER_DEFAULT_VISIBLE_HEIGHT * self.sliders.count - self.bottomPadding, CGRectGetWidth(newSuperview.frame), PICKER_INVISIBLE_HEIGHT + PICKER_DEFAULT_VISIBLE_HEIGHT * self.sliders.count);
             
             [_sliders enumerateObjectsUsingBlock:^(TWRPickerSlider *slider, NSUInteger idx, BOOL *stop) {
-                TWRSliderContainerView *container = [[TWRSliderContainerView alloc] initWithFrame:CGRectMake(0, PICKER_DEFAULT_VISIBLE_HEIGHT * idx, CGRectGetWidth(newSuperview.frame), verticalSpacing)];
+                if (!_width) {
+                    _width = CGRectGetWidth(newSuperview.frame);
+                }
+                TWRSliderContainerView *container = [[TWRSliderContainerView alloc] initWithFrame:CGRectMake(0, PICKER_DEFAULT_VISIBLE_HEIGHT * idx, _width, verticalSpacing)]; //CGRectGetWidth(newSuperview.frame)
                 [self.containers insertObject:container atIndex:0];
                 [self addSubview:container];
             }];
@@ -137,6 +141,18 @@
         default:
             break;
     }
+}
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    UIView *hitView = [super hitTest:point withEvent:event];
+    
+    // If the hitView is THIS view, return the view that you want to receive the touch instead:
+    if (hitView == self) {
+        return nil;
+    }
+    // Else return the hitView (as it could be one of this view's buttons):
+    return hitView;
 }
 
 @end
