@@ -166,7 +166,7 @@
 
 - (void)configureDatePickerWithRect:(CGRect)rect {
     // Date Picker
-    self.datePicker = [[UIDatePicker alloc] initWithFrame:rect];
+    self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(rect.origin.x, 44, rect.size.width, 200)];
     [self.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
     self.datePicker.datePickerMode = UIDatePickerModeDate;
     [self addSubview:self.datePicker];
